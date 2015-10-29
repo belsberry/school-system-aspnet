@@ -12,5 +12,6 @@ namespace SchoolInformationSystem.UnitTests
         {
         	Assert.True(true);
         }
+        
     }
 }

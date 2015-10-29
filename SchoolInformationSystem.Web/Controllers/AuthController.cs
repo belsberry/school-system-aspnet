@@ -3,10 +3,12 @@ using Microsoft.AspNet.Mvc;
 using System.Linq;
 using SchoolInformationSystem.Data;
 using SchoolInformationSystem.Models;
+using Microsoft.AspNet.Authorization;
 
-namespace SchoolInformationSystem.Controllers
+namespace SchoolInformationSystem.Web.Controllers
 {
 	[Route("api/[controller]")]
+	[Authorize]
 	public class AuthController : BaseController
 	{
 		
@@ -14,25 +16,8 @@ namespace SchoolInformationSystem.Controllers
 		public AuthController(SchoolDataContext context)
 		{
 			_context = context;
-			
 		}
-		
-		[Route("login")]
-		[HttpPost] 
-		public void Login(string userName, string password)
-		{
-			Login userLogin = _context
-				.Logins
-				.FirstOrDefault(x => x.UserName == userName);
-			
-			SetUser(new User{
-				FirstName = "Foo",
-				LastName = "Bar",
-				LicenseNumber = "123123123",
-				_id = Guid.NewGuid()
-			});
-		}
-		
+				
 		[Route("profile")]
 		[HttpGet]
 		public User GetProfile()
@@ -75,7 +60,8 @@ namespace SchoolInformationSystem.Controllers
 		{
 			Guid currentUserID = this.ApplicationUser._id;
 			Login login = _context.Logins.FirstOrDefault(lg => lg.UserID == currentUserID);
-			
+			login.SetPassword(newPassword);
+			_context.Update(login);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 using SchoolInformationSystem.Data;
-namespace SchoolInformationSystem.Controllers
+namespace SchoolInformationSystem.Web.Controllers
 {
 	public class EnrollmentController : BaseController
 	{

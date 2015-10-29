@@ -25,22 +25,36 @@ namespace SchoolInformationSystem.DevSetup
             IServiceProvider provider = collection.BuildServiceProvider();
             
             IModelCreator creator = provider.GetService<IModelCreator>();
-            Login login = creator.LoadModel<Login>();
-            login.SetPassword("password");
-            
-            Console.WriteLine(login.Salt);
-            Console.WriteLine(login.PasswordHash[0]);
-            
             SchoolDataContext context = provider.GetService<SchoolDataContext>();
-            context.Create(login);
             
-            Login first = context.Logins.FirstOrDefault();
-            first.SetPassword("flackity");
-            first.UserName = "admin";
-            context.Update(first);
+            Login l = context.Logins.FirstOrDefault(x => x.UserName == "admin");
+            if(l == null)
+            {
+                Login login = creator.LoadModel<Login>();
+                User user = creator.LoadModel<User>();
+                //Setup user
+                user._id = Guid.NewGuid();
+                user.FirstName = "Admin";
+                user.LastName = "User";
+                user.Email = "ben.elsberry@gmail.com";
+                user.ScopeLevel = ScopeLevel.SuperUser;
+                
+                //Setup user login
+                login.UserID = user._id;            
+                login.SetPassword("password");
+                login.UserName = "admin";
+                login._id = Guid.NewGuid();
+                                
+                context.Create(login);
+                context.Create(user);
+                
+                Console.WriteLine("User/Login created successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Login already created");
+            }
             
-            Login final = context.Logins.FirstOrDefault(l => l.UserName == "admin");
-            Console.WriteLine(final.CheckPassword("flackity"));
         }
     }
 }

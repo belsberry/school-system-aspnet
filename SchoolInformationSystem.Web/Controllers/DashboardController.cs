@@ -3,7 +3,7 @@ using System.Linq;
 using SchoolInformationSystem.Models;
 using Microsoft.AspNet.Mvc;
 
-namespace SchoolInformationSystem.Controllers
+namespace SchoolInformationSystem.Web.Controllers
 {
 	[Route("api/dashboard")]
 	public class DashboardController : BaseController

@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System;
 using Microsoft.AspNet.Authentication.Cookies;
 
-namespace SchoolInformationSystem.Controllers
+namespace SchoolInformationSystem.Web.Controllers
 {
 	public abstract class BaseController : Controller
 	{

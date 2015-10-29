@@ -3,7 +3,7 @@ using SchoolInformationSystem.Data;
 using SchoolInformationSystem.Models;
 using System.Linq;
 
-namespace SchoolInformationSystem.Controllers
+namespace SchoolInformationSystem.Web.Controllers
 {
 	[Route("api/domain")]
 	public class DomainController : BaseController

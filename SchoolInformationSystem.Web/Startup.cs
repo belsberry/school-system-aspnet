@@ -7,7 +7,9 @@ using SchoolInformationSystem.Common.Data;
 using Microsoft.Framework.Configuration;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Logging;
-
+using System;
+using SchoolInformationSystem.Common.Models;
+using SchoolInformationSystem.Web.Infrastructure;
 
 namespace SchoolInformationSystem
 {
@@ -30,12 +32,12 @@ namespace SchoolInformationSystem
         {
             services.AddLogging();
             
-            services.AddMvc().AddJsonOptions(x => {
-                x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
-            
+            IMvcBuilder mvcBuilder = services.AddMvc();
             string mongoConnection = Configuration.GetSection("Data:DefaultConnection:Mongo").Value;
             
+            /**
+            *   Register the things
+            */
             services.AddSingleton(typeof(IDocumentProvider), x => {
                 return new MongoDBDocumentProvider(mongoConnection);   
             });
@@ -43,10 +45,22 @@ namespace SchoolInformationSystem
             services.AddSingleton<SchoolDataContext>();
             
             services.AddAuthentication();
-            
             services.AddSession();
             services.AddCaching();          
-            //IServiceProvider provider = services.BuildServiceProvider();
+            
+            services.AddTransient(typeof(IModelCreator), typeof(ModelCreator));
+            /**
+            *   Build service provider
+            */
+            IServiceProvider provider = services.BuildServiceProvider();
+            
+            /**
+            *   Setup serializer
+            */
+            mvcBuilder.AddJsonOptions(x => {
+                x.SerializerSettings.ContractResolver = 
+                    new DIContractResolver(provider.GetService<IModelCreator>());
+            });
             
         }
 
@@ -67,6 +81,8 @@ namespace SchoolInformationSystem
             
             // Add MVC to the request pipeline.
             app.UseMvc();
+            
+            
            
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");

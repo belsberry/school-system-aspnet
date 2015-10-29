@@ -1,0 +1,10 @@
+{
+	"projects": [
+		"SchoolInformationSystem.Common",
+		"SchoolInformationSystem.Models",
+		"SchoolInformationSystem.Data",
+		"SchoolInformationSystem.Web",
+		"SchoolInformationSystem.DevSetup",
+		"SchoolInformationSystem.UnitTests"
+	]
+}

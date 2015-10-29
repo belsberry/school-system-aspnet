@@ -5,7 +5,7 @@ using SchoolInformationSystem.Models;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
 
-namespace SchoolInformationSystem.Controllers
+namespace SchoolInformationSystem.Web.Controllers
 {
 	[Authorize]
 	[Route("api/configuration/[controller]")]

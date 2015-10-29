@@ -96,13 +96,10 @@ namespace SchoolInformationSystem.Common.Data
         {
             if (_collections.ContainsKey(typeof(T)))
             {
-                Console.WriteLine("in create");
                 string colName = _collections[typeof(T)];
-                Console.WriteLine(colName);
                 _database.GetCollection<T>(colName)
                     .InsertOneAsync(document)
                     .Wait();
-                Console.WriteLine("Complete");
                 return document;
             }
             else

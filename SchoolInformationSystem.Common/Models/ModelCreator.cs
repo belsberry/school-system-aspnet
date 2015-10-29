@@ -11,7 +11,19 @@ namespace SchoolInformationSystem.Common.Models
 		}
         public T LoadModel<T>()
         {
-			return (T)_provider.GetService(typeof(T));
+			return (T)LoadModel(typeof(T));
         }
+		public object LoadModel(Type type)
+		{
+			object model = _provider.GetService(type);
+			if(model != null)
+			{
+				return model;
+			}
+			else
+			{
+				return Activator.CreateInstance(type);	
+			}
+		}
     }
 }
