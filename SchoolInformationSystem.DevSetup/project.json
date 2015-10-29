@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0-*",
+  "description": "SchoolInformationSystem.DevSetup Console Application",
+  "authors": ["bene"],
+  "tags": [""],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "Microsoft.Framework.DependencyInjection": "1.0.0-beta8",
+    "SchoolInformationSystem.Models": "1.0.0",
+    "SchoolInformationSystem.Common": "1.0.0",
+    "SchoolInformationSystem.Data": "1.0.0"
+  },
+
+  "commands": {
+    "run": "SchoolInformationSystem.DevSetup"
+  },
+
+  "frameworks": {
+    "dnx451": {}
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-*",
+  "description": "SchoolInformationSystem.Models Class Library",
+  "authors": [ "Class Library template" ],
+  "tags": [""],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "SchoolInformationSystem.Common": "1.0.0"
+  },
+  "frameworks": {
+    "dnx451": { }
+  }
+}
