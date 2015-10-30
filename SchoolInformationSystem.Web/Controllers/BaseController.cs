@@ -32,19 +32,24 @@ namespace SchoolInformationSystem.Web.Controllers
 			}
 		}
 		
-		protected void SetUser(User u)
+		protected void SignIn(User u)
 		{
 			List<Claim> claims = new List<Claim>
 			{
-				new Claim("FirstName", u.FirstName),
-				new Claim("LastName", u.LastName),
+				new Claim("FirstName", u.FirstName ?? ""),
+				new Claim("LastName", u.LastName ?? ""),
 				new Claim("_id", u._id.ToString()),
-				new Claim("LicenseNumber", u.LicenseNumber)
+				new Claim("LicenseNumber", u.LicenseNumber ?? "")
 			};
 			ClaimsIdentity id = new ClaimsIdentity(claims);
 			ClaimsPrincipal principal = new ClaimsPrincipal(id);
 			HttpContext.Authentication.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();			
 		}		
+		
+		protected void SignOut()
+		{
+			HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+		}
 		
 	}
 }

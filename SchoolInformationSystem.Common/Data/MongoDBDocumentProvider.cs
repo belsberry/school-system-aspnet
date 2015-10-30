@@ -56,14 +56,20 @@ namespace SchoolInformationSystem.Common.Data
             }
             public object GetInstance()
             {
-                return _provider.GetService(_type);
+                object instance = _provider.GetService(_type); 
+                if(instance == null)
+                {
+                    instance = Activator.CreateInstance(_type);
+                }
+                return instance;
             }
         }
+        private Injector _inj;
         private Delegate CreateInjectorDelegate(Type typeToInject)
         {
-            Injector inj = new Injector(typeToInject, _serviceProvider);
+            _inj = new Injector(typeToInject, _serviceProvider);
             MethodInfo mi = typeof(Injector).GetMethod("GetInstance");
-            return Delegate.CreateDelegate(typeof(Inject), inj, mi, false);
+            return Delegate.CreateDelegate(typeof(Inject), _inj, mi, false);
         }
         
         public void RegisterCollectionWithType(Type type, string collectionName)

@@ -9,6 +9,7 @@
     "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
     "Microsoft.AspNet.Authentication": "1.0.0-beta8",
     "Microsoft.AspNet.Authentication.Cookies": "1.0.0-beta8",
+    "Microsoft.AspNet.Diagnostics": "1.0.0-beta8",
     "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
     "Microsoft.Framework.Logging.Console": "1.0.0-beta8",
     "Microsoft.AspNet.Session": "1.0.0-beta8",
@@ -37,5 +38,10 @@
     "**.xproj",
     "**.user",
     "**.vspscc"
-  ]
+  ],
+  "scripts": {
+    "postbuild": [
+      "gulp inject"
+    ]
+  }
 }

@@ -9,6 +9,9 @@ using Microsoft.Framework.Logging;
 using System;
 using SchoolInformationSystem.Common.Models;
 using SchoolInformationSystem.Web.Infrastructure;
+using Microsoft.AspNet.Diagnostics;
+using SchoolInformationSystem.Models;
+using SchoolInformationSystem.Common.Security;
 
 namespace SchoolInformationSystem
 {
@@ -46,6 +49,8 @@ namespace SchoolInformationSystem
             services.AddAuthentication();
             services.AddSession();
             services.AddCaching();          
+            services.AddTransient(typeof(Login));
+            services.AddTransient(typeof(IEncryption), typeof(Encryption));
             
             services.AddTransient(typeof(IModelCreator), typeof(ModelCreator));
             /**
@@ -60,9 +65,10 @@ namespace SchoolInformationSystem
                 x.SerializerSettings.ContractResolver = 
                     new DIContractResolver(provider.GetService<IModelCreator>());
             });
-            
         }
 
+
+        
         // Configure is called after ConfigureServices is called.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logger)
         {
@@ -74,17 +80,13 @@ namespace SchoolInformationSystem
             
             app.UseCookieAuthentication(options => {
                 options.AutomaticAuthentication = true; // This makes it do.  Not sure why
+                options.Events = new CustomCookieAuthenticationEvents();
             });
             
             app.UseSession();
-            
+            app.UseDeveloperExceptionPage();
             // Add MVC to the request pipeline.
             app.UseMvc();
-            
-            
-           
-            // Add the following route for porting Web API 2 controllers.
-            // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
         }
     }
 }

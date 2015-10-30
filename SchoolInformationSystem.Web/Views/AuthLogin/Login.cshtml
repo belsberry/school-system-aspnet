@@ -1,0 +1,13 @@
+@model SchoolInformationSystem.Web.ViewModels.LoginVM
+
+<html>
+	<body>
+		@using(Html.BeginForm(new { Next = @Model.Next }))
+		{
+			<input type="text" name="userName" />
+			<input type="password" name="password" />
+			<input type="submit" value="Login" />
+		}
+		<span>@Model.ErrorMessage</span>
+	</body>
+</html>
