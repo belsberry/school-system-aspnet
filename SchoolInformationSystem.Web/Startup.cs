@@ -1,7 +1,6 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.DependencyInjection;
-using Newtonsoft.Json.Serialization;
 using SchoolInformationSystem.Data;
 using SchoolInformationSystem.Common.Data;
 using Microsoft.Framework.Configuration;
