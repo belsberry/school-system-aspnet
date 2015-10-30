@@ -9,12 +9,13 @@ module.exports = (function () {
     var cssOutputRoot = temp + "css/";
     var npmRoot = "./node_modules/";
     var assetFolder = root + "assets/";
-
+    var tempAppFolder = temp + "app/";
+    var injectIgnoreRoot = "/wwwroot";
 
     var bowerConfig = {
         "json": require("./bower.json"),
         "directory": __dirname + "/wwwroot/.tmp/bower_components/",
-        ignorePath: ".."
+        ignorePath: "../wwwroot"
     };
 
     return {
@@ -56,13 +57,17 @@ module.exports = (function () {
         cssOutputRoot: cssOutputRoot,
         index: root + "index.html",
         indexSrc: sourceRoot + "index.html",
+        injectIgnoreRoot: injectIgnoreRoot,
         login: root + "login.ejs",
         loginSrc: sourceRoot + "login.ejs",
         js: [
-                depRoot + "socket.io-client/socket.io.js",
                 sourceRoot + "**/*.js",
                 "!" + sourceRoot + "**/*.specs.js"
             ],
+        jsTempAppFiles: [
+                tempAppFolder + "**/*.js"
+            ],
+        tempAppFolder: tempAppFolder,
         htmlTemplates: sourceRoot + "**/*.template.html",
         temp: temp,
         templateCache: {

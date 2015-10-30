@@ -40,7 +40,7 @@ gulp.task("build", ["clean-build", "inject"], function(){
     .pipe(gulp.dest("./.tmp"));
 });
 
-gulp.task("inject", ["move-bower", "templateCache", "less", "assets"], function () {
+gulp.task("inject", ["copy-app", "templateCache", "less", "assets"], function () {
     var options = config.getDefaultWiredepOptions();
     var wiredep = require("wiredep").stream;
     var srcFiles = [config.indexSrc, config.loginSrc];
@@ -49,22 +49,29 @@ gulp.task("inject", ["move-bower", "templateCache", "less", "assets"], function 
         .pipe($.plumber())
         .pipe($.print())
         .pipe(wiredep(options))
-        .pipe($.inject(gulp.src(config.js)))
-        .pipe($.inject(gulp.src(config.temp + config.templateCache.outFile), { name: "inject:templates" }))
-        .pipe($.inject(gulp.src(config.bootstrapCss), {name: "inject:bootstrap"}))
-        .pipe($.inject(gulp.src(config.appCss), { name: "inject:app" }))
+        .pipe($.inject(gulp.src(config.jsTempAppFiles), { ignorePath: config.injectIgnoreRoot}))
+        .pipe($.inject(gulp.src(config.temp + config.templateCache.outFile), { name: "inject:templates", ignorePath: config.injectIgnoreRoot }))
+        .pipe($.inject(gulp.src(config.bootstrapCss), {name: "inject:bootstrap", ignorePath: config.injectIgnoreRoot}))
+        .pipe($.inject(gulp.src(config.appCss), { name: "inject:app", ignorePath: config.injectIgnoreRoot }))
         .pipe(gulp.dest(config.root));
 });
 
-gulp.task("move-bower", ["clean-temp-bower"], function(){
-   return gulp
+gulp.task("copy-app", ["clean-app"], function(){
+    
+    var bowerFiles = gulp
         .src(config.depRoot + "**/*.*")
-        .pipe(gulp.dest(config.bowerTempRoot)); 
+        .pipe($.plumber())
+        .pipe(gulp.dest(config.bowerTempRoot));
+    var appFiles = gulp
+        .src(config.js)
+        .pipe($.plumber())
+        .pipe(gulp.dest(config.tempAppFolder))
+    return merge(bowerFiles, appFiles);
 });
 
-gulp.task("clean-temp-bower", function(done){
-   var bowerTemp = [].concat(config.bowerTempRoot + "**");
-   del(bowerTemp, done); 
+gulp.task("clean-app", function(done){
+   var temp = [].concat(config.tempAppFolder + "**", config.bowerTempRoot + "**");
+   del(temp, done); 
 });
 
 gulp.task("clean-assets", function(){
