@@ -1,0 +1,28 @@
+<h1 class="text-center">{{ classRoster.className }} Students</h1>
+<hr/>
+
+
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button class="btn btn-primary" ng-click="openAddStudent()"><span class="glyphicon glyphicon-add"></span> Add Student</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="student in classRoster.students">
+          <td>{{student.firstName}}</td>
+          <td>{{student.lastName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

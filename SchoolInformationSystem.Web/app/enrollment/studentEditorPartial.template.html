@@ -1,0 +1,84 @@
+
+<div class="row">
+  <div class="col-md-4 col-sm-6 form-group">
+    <label class="control-label">USID</label>
+    <input type="text" class="form-control" ng-disabled="!canEditUsid"
+      ng-model="student.usid" name="usid" ng-minlength="9" ng-maxlength="9" required />
+    <span class="text-danger" ng-show="form.usid.$error.required && form.$submitted">Required</span>
+    <span class="text-danger" ng-show="(form.usid.$error.maxlength || form.usid.$error.minlength) && form.$submitted">Must be 9 characters</span>
+  </div>
+  <div class="col-md-4 col-sm-6 form-group">
+    <label class="control-label">Grade</label>
+    <select name="grade" ng-model="student.gradeId" class="form-control" required>
+      <option ng-repeat="grade in domains.grades" value="{{ grade.gradeId }}">
+        {{ grade.description }}
+      </option>
+    </select>
+    <span class="text-danger" ng-show="form.grade.$error.required && form.$submitted">Required</span>
+  </div>
+  <div class="col-md-4 col-sm-6 form-group">
+    <label class="control-label">First Name</label>
+    <input type="text" class="form-control" ng-model="student.firstName" name="firstName" required/>
+    <span class="text-danger" ng-show="form.firstName.$error.required && form.$submitted">Required</span>
+  </div>
+  <div class="col-md-4 col-sm-6 form-group">
+    <label class="control-label">Last Name</label>
+    <input class="form-control" type="text" ng-model="student.lastName" name="lastName" required/>
+    <span class="text-danger" ng-show="form.lastName.$error.required && form.$submitted">Required</span>
+  </div>
+  <div class="col-md-4 col-sm-6 form-group">
+    <label class="control-label">Middle Name</label>
+    <input class="form-control" type="text" ng-model="student.middleName" name="middleName" />
+  </div>
+  <div class="col-md-4 col-sm-6 form-group">
+    <label class="control-label">Date of Birth</label>
+    <span class="input-group">
+      <input class="form-control" type="text" datepicker-popup="MMM-dd-yyyy" datepicker-mode="'year'" is-open="showDobPicker"
+         ng-model="student.dob" name="dob" required />
+      <span class="input-group-btn">
+        <a class="btn btn-default" ng-click="showDobPicker = true;">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </a>
+      </span>
+    </span>
+    <span class="text-danger" ng-show="form.dob.$error.required && form.$submitted">Required</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 form-group">
+    <label class="control-label">Gender</label>
+    <br/>
+    <div class="btn-group">
+      <label class="btn btn-default" ng-model="student.gender" btn-radio="'F'">
+        Female
+      </label>
+      <label class="btn btn-default"  ng-model="student.gender" btn-radio="'M'">
+        Male
+      </label>
+      <input type="text" ng-model="student.gender" name="gender" style="display:none;" required/>
+
+      <span class="text-danger" ng-show="form.gender.$error.required && form.$submitted"><br/>Required</span>
+    </div>
+  </div>
+  <div class="col-sm-8 form-group">
+    <label class="control-label">Race</label>
+    <br/>
+    <div class="btn-group">
+      <label class="btn btn-default"  ng-model="student.race.white" btn-checkbox>
+        White
+      </label>
+      <label class="btn btn-default" ng-model="student.race.black" btn-checkbox>
+        Black
+      </label>
+      <label class="btn btn-default" ng-model="student.race.asian" btn-checkbox>
+        Asian
+      </label>
+      <label class="btn btn-default" ng-model="student.race.pacificIslander" btn-checkbox>
+        Hawaiian / Pacific Islander
+      </label>
+      <label class="btn btn-default" ng-model="student.race.americanIndian" btn-checkbox>
+        American Indian
+      </label>
+    </div>
+  </div>
+</div>

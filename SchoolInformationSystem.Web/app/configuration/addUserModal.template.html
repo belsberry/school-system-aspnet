@@ -1,0 +1,58 @@
+<form name="form" novalidate ng-submit="save()">
+  <div class="modal-header">
+    <h3 class="text-center">Add User</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row" ng-show="errorMessage">
+      <div class="col-md-12 alert alert-danger">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label class="control-label">Username</label>
+        <input type="text" class="form-control" name="userName" ng-model="user.userName" required/>
+        <span class="text-danger" ng-show="form.$submitted && form.userName.$error.required">Required</span>
+      </div>
+      <div class="col-md-6 form-group">
+        <label class="control-label">Email</label>
+        <input type="text" class="form-control" name="email" required ng-model="user.email" />
+        <span class="text-danger" ng-show="form.$submitted && form.email.$error.required">Required</span>
+        <span class="text-danger" ng-show="form.$submitted && form.email.$error.email">Invalid Format</span>
+      </div>
+      <div class="col-md-6 form-group">
+        <label class="control-label">First Name</label>
+        <input type="text" class="form-control" name="firstName" required ng-model="user.firstName" />
+        <span class="text-danger" ng-show="form.$submitted && form.firstName.$error.required">Required</span>
+      </div>
+      <div class="col-md-6 form-group">
+        <label class="control-label">Last Name</label>
+        <input type="text" class="form-control" name="lastName" required ng-model="user.lastName" />
+        <span class="text-danger" ng-show="form.$submitted && form.lastName.$error.required">Required</span>
+      </div>
+      <div class="col-md-6 form-group">
+        <label class="control-label">User Level</label>
+        <select class="form-control" name="scopeLevel" ng-change="updateScopeLevelValues()" required ng-model="user.scopeLevel" >
+          <option ng-repeat="scopeLevel in scopeLevels" value="{{ scopeLevel.value }}">{{ scopeLevel.description }}</option>
+        </select>
+        <span class="text-danger" ng-show="form.$submitted && form.scopeLevel.$error.required">Required</span>
+      </div>
+      <div class="col-md-6 form-group" ng-show="isSchoolLevel">
+        <label class="control-label">School</label>
+        <select class="form-control" name="school" required="isSchoolLevel" ng-model="user.school">
+          <option ng-repeat="school in schools" value="{{ school._id }}">{{ school.name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-xs-6 text-left">
+        <a class="btn btn-default" ng-click="close()">Close</a>
+      </div>
+      <div class="col-xs-6 text-right">
+        <input type="submit" class="btn btn-primary" value="Add User"/>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,70 @@
+<h1 class="text-center">Teacher Profile</h1>
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="text-center">Scheduled Observations</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Date</th>
+                  <th>Observer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="scheduledObservation in teacherProfile.scheduledObservations">
+                  <td>{{ scheduledObservation.location }}</td>
+                  <td>{{ scheduledObservation.observationDate | date : "M/d/yyyy" }}</td>
+                  <td>{{ scheduledObservation.observer }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="text-center">Completed Observations</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Date</th>
+                  <th>Observer</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="completedObservation in teacherProfile.completedObservations">
+                  <td>{{ completedObservation.location }}</td>
+                  <td>{{ completedObservation.observationDate | date : "M/d/yyyy" }}</td>
+                  <td>{{ completedObservation.observer }}</td>
+                  <td>{{ completedObservation.totalScore }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="text-center">Average Observation Score</h3>
+      </div>
+      <div class="panel-body">
+        <h1 class="text-center">{{ averageObservationScore }}</h1>
+      </div>
+    </div>
+  </div>

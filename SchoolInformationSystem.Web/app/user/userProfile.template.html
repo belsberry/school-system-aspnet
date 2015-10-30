@@ -1,0 +1,52 @@
+<h3>User Profile</h3>
+
+<hr/>
+
+
+<div class="row">
+  <div class="col-md-4 form-group">
+    <label class="control-label">User Name</label>
+    <span class="form-control-static">{{ userData.userName }}</span>
+  </div>
+  <form ng-submit="setNewPassword(pwd)" name="pwdForm" novalidate>
+    <div class="col-md-4 form-group">
+      <label class="control-label">New Password</label>
+      <input type="password" class="form-control" ng-model="pwd" name="pwd" required/>
+      <span class="text-danger" ng-show="pwdForm.$submitted && pwdForm.pwd.$error.required">Required</span>
+    </div>
+    <div class="col-md-4 form-group">
+      <input type="submit" value="Change Password" class="btn btn-warn" />
+    </div>
+  </form>
+</div>
+<hr/>
+<form ng-submit="saveUser()" novalidate name="form">
+  <div class="row">
+    <div class="col-md-4 form-group">
+      <label class="control-label">First Name</label>
+      <input type="text" class="form-control" name="firstName" ng-model="userData.firstName" required/>
+      <span class="text-danger" ng-show="form.$submitted && form.firstName.$error.required">Required</span>
+    </div>
+    <div class="col-md-4 form-group">
+      <label class="control-label">Last Name</label>
+      <input type="text" class="form-control" name="lastName" ng-model="userData.lastName" required/>
+      <span class="text-danger" ng-show="form.$submitted && form.lastName.$error.required">Required</span>
+    </div>
+    <div class="col-md-4 form-group">
+      <label class="control-label">Email</label>
+      <input type="email" class="form-control" ng-model="userData.email" name="email" required/>
+      <span class="text-danger" ng-show="form.$submitted && form.email.$error.required">Required</span>
+      <span class="text-danger" ng-show="form.$submitted && form.email.$error.email">Invalid Email</span>
+    </div>
+    <div class="col-md-4 form-group">
+      <label class="control-label">License Number</label>
+      <input type="text" class="form-control" name="licenseNumber" ng-model="userData.licenseNumber" ng-pattern="'[0-9]*'" />
+      <span class="text-danger" ng-show="form.$submitted && form.licenseNumber.$error.pattern">Must be a number</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <input type="submit" value="Save Profile" class="btn btn-primary"/>
+    </div>
+  </div>
+</form>

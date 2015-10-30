@@ -1,0 +1,30 @@
+<h3>Select a class</h3>
+<div class="row">
+  <div class="col-md-3" ng-repeat="classData in classes">
+    <button class="btn btn-default btn-block btn-lg" ng-click="selectClass(classData)">
+      {{ classData.className }} Period {{ classData.period }}
+    </button>
+  </div>
+</div>
+<h3 ng-show="showClassAssignments">Assignments for {{ selectedClass.className }}</h3>
+<button class="btn btn-primary" ng-show="showClassAssignments" ng-click="openAddAssignment()">
+  <span class="glyphicon glyphicon-plus"></span> Add Assignment
+</button>
+<div class="row" ng-show="showClassAssignments">
+  <div class="col-md-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Assignment</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="assignment in classAssignments">
+          <td>{{ assignment.description }}</td>
+          <td><button class="btn btn-danger" ng-click="deleteAssignment(assignment)"><span class="glyphicon glyphicon-trash"></span></button><td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

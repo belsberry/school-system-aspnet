@@ -1,0 +1,32 @@
+<h1 class="text-center">Student List</h1>
+<hr/>
+<div class="row give-lg-space-top">
+  <form ng-submit="getStudents()">
+    <div class="col-md-6 form-inline">
+      <input type="text" ng-model="searchString" class="form-control"/>
+      <input type="submit" class="btn btn-primary" value="Search" />
+    </div>
+  </form>
+</div>
+<div class="row give-sm-space-top">
+  <div class="col-xs-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name </th>
+          <th>Grade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="student in students">
+          <td>{{ student.firstName }}</td>
+          <td>{{ student.lastName }}</td>
+          <td>{{ student.gradeId }}</td>
+          <td><a class="btn btn-default" href="#/enrollment/students/{{ student._id }}">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

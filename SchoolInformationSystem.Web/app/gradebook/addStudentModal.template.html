@@ -1,0 +1,45 @@
+<div class="modal-heading">
+  <h3 class="text-center">Add Student</h3>
+</div>
+<div class="modal-body">
+  <div class="row" ng-show="errorMessage">
+    <div class="col-md-12 alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 form-inline">
+      <form ng-submit="doSearch()">
+        <input type="text" class="form-control" ng-model="searchString" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="student in students">
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName }}</td>
+            <td><button class="btn btn-primary" ng-click="addStudentToRoster(student)">Add Student</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="row">
+    <div class="col-md-6 text-left">
+      <button class="btn btn-default" ng-click="close()">Close</button>
+    </div>
+  </div>
+</div>

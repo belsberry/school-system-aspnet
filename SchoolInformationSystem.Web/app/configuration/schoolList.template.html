@@ -1,0 +1,31 @@
+<h3>School List</h3>
+
+<hr/>
+
+<div class="row">
+  <div class="col-xs-6 text-left">
+    <a class="btn btn-default" href="#/configuration"><span class="fa fa-arrow-left"></span> Back</button>
+  </div>
+  <div class="col-xs-6 text-right">
+    <button class="btn btn-primary" ng-click="openAddSchoolModal()"><span class="fa fa-plus"></span> Add School</button>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="school in schools">
+          <td>{{ school._id }}</td>
+          <td>{{ school.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

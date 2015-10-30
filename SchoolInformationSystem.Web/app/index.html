@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html ng-app="app">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- build:css /build/app.css -->
+    <!--bower:css-->
+    <!--endbower-->
+    <!--inject:bootstrap:css-->
+    <!--endinject-->
+    <!--inject:app:css-->
+    <!--endinject-->
+    <!-- endbuild -->
+  </head>
+
+  <body class="ng-cloak" ng-cloak>
+    <nav class="navbar navbar-default navbar-show-sm navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" ng-click="navbarIsVisible = !navbarIsVisible" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" collapse="!navbarIsVisible">
+          <ul class="nav navbar-nav">
+            <li><a href="#/">Dashboard</a></li>
+            <li><a href="#/gradebook">Gradebook</a></li>
+            <li><a href="#/attendance">Attendance</a></li>
+            <li><a href="#/enrollment">Enrollment</a></li>
+            <li><a href="#/teacherProfile">Teacher Profile</a></li>
+            <li><a href="#/configuration">Configuration</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="side-nav">
+      <div class="side-nav-link">
+        <a href="#/" tooltip="Dashboard" tooltip-placement="right" >
+          <span class="fa fa-pie-chart"></span>
+        </a>
+      </div>
+      <div class="side-nav-link">
+        <a href="#/gradebook" tooltip-placement="right"  tooltip="Gradebook">
+          <span class="fa fa-book"></span>
+        </a>
+      </div>
+      <div class="side-nav-link">
+        <a href="#/attendance" tooltip-placement="right"  tooltip="Attendance">
+          <span class="glyphicon glyphicon-bell"></span>
+        </a>
+      </div>
+      <div class="side-nav-link">
+        <a href="#/enrollment" tooltip-placement="right"  tooltip="Student Enrollment">
+          <span class="fa fa-users"></span>
+        </a>
+      </div>
+
+      <div class="side-nav-link">
+        <a href="#/teacherProfile" tooltip-placement="right"  tooltip="Teacher Profile">
+          <span class="fa fa-user"></span>
+        </a>
+      </div>
+
+      <div class="side-nav-link">
+        <a href="#/configuration" tooltip-placement="right"  tooltip="Configuration">
+          <span class="fa fa-cogs"></span>
+        </a>
+      </div>
+    </div>
+    <div class="container-fluid main">
+      <div class="row main-panel">
+        <div class="col-sm-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <strong>Welcome, {{ userName }}</strong>
+              <a href="#/userprofile" class="btn btn-default btn-sm">Edit Profile</a>
+              <a href="/auth/logout" class="btn btn-primary btn-sm">Log out</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <span ng-show="!canSelectSchool">School: {{ school }}</span>
+              <div class="form-group form-inline" ng-show="canSelectSchool">
+                <label class="control-label">Current School</label>
+                <select class="form-control" ng-model="currentSchoolId" ng-change="schoolChanged()">
+                  <option ng-repeat="school in schools" value="{{ school._id }}">{{ school.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div ng-view>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- build:js /build/app.js -->
+    <!--bower:js-->
+    <!--endbower-->
+    <!--inject:js-->
+    <!--endinject-->
+    <!--inject:templates:js-->
+    <!--endinject-->
+    <!-- endbuild -->
+  </body>
+</html>

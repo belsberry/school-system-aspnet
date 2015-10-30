@@ -1,0 +1,40 @@
+<h1 class="text-center">Enrollment</h1>
+<hr/>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-default fixed-nav">
+      <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-xs-6">
+              <a class="btn btn-link" href="#/enrollment/students">
+                Edit Students
+              </a>
+            </div>
+            <div class="col-md-12 col-xs-6">
+              <a class="btn btn-link" href="#/enrollment/enroll">
+                Enroll New Student
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="text-center">Student Populations</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-4" ng-repeat="population in studentPopulationData">
+            <h4 class="text-center">{{ population.title }}</h4>
+            <canvas class="chart chart-pie" chart-data="population.data"
+              chart-labels="population.labels" chart-legend="true">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

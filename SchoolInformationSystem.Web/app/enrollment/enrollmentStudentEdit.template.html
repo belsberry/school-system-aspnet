@@ -1,0 +1,20 @@
+<h1 class="text-center">Edit Student</h1>
+<hr/>
+
+<form ng-submit="updateStudent()" name="form" novalidate>
+  <div ng-include src="'app/enrollment/studentEditorPartial.template.html'"></div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <a href="#/enrollment/students" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+    </div>
+    <div class="col-xs-6 text-right">
+      <input type="submit" class="btn btn-primary" value="Update Student"/>
+    </div>
+  </div>
+  <div class="row" ng-show="form.$dirty">
+    <div class="col-md-4 col-md-offset-8 give-md-space-top">
+      <div class="alert alert-info">Student has unsaved changes</div>
+    </div>
+  </div>
+</form>
