@@ -33,17 +33,17 @@ namespace SchoolInformationSystem.DevSetup
                 Login login = creator.LoadModel<Login>();
                 User user = creator.LoadModel<User>();
                 //Setup user
-                user._id = Guid.NewGuid();
+                user.Id = Guid.NewGuid();
                 user.FirstName = "Admin";
                 user.LastName = "User";
                 user.Email = "ben.elsberry@gmail.com";
                 user.ScopeLevel = ScopeLevel.SuperUser;
                 
                 //Setup user login
-                login.UserID = user._id;            
+                login.UserID = user.Id;            
                 login.SetPassword("password");
                 login.UserName = "admin";
-                login._id = Guid.NewGuid();
+                login.Id = Guid.NewGuid();
                                 
                 context.Create(login);
                 context.Create(user);

@@ -6,7 +6,7 @@ namespace SchoolInformationSystem.Models
 {
 	public class DashboardData : IHaveId
 	{
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public List<AssignmentGrade> AssignmentGrades { get; set; }
 		public List<ReferralCount> ReferralCounts { get; set; }
 		public List<AttendanceCount> Attendance { get; set; }

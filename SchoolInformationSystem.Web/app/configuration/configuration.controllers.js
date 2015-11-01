@@ -110,7 +110,7 @@ configurationControllers.controller("ConfigurationAddUserModalCtrl", ["$scope", 
   function loadSchools(){
     SchoolSvc.getSchools().then(function(response){
       $scope.schools = response.data;
-      $scope.schools.splice(0, 0, {_id: null, name: "-- Select --"});
+      $scope.schools.splice(0, 0, { id: null, name: "-- Select --"});
     });
   }
   loadSchools();

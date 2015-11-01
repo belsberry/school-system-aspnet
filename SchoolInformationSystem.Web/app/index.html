@@ -88,7 +88,7 @@
               <div class="form-group form-inline" ng-show="canSelectSchool">
                 <label class="control-label">Current School</label>
                 <select class="form-control" ng-model="currentSchoolId" ng-change="schoolChanged()">
-                  <option ng-repeat="school in schools" value="{{ school._id }}">{{ school.name }}</option>
+                  <option ng-repeat="school in schools" value="{{ school.id }}">{{ school.name }}</option>
                 </select>
               </div>
             </div>

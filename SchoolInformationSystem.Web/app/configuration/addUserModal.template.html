@@ -40,7 +40,7 @@
       <div class="col-md-6 form-group" ng-show="isSchoolLevel">
         <label class="control-label">School</label>
         <select class="form-control" name="school" required="isSchoolLevel" ng-model="user.school">
-          <option ng-repeat="school in schools" value="{{ school._id }}">{{ school.name }}</option>
+          <option ng-repeat="school in schools" value="{{ school.id }}">{{ school.name }}</option>
         </select>
       </div>
     </div>

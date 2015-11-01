@@ -12,7 +12,7 @@ namespace SchoolInformationSystem.Models
 			_encryptionProvider = enc;
 		}
 		
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public Guid UserID { get; set; }
 		public string UserName { get; set; }
 		public byte[] PasswordHash { get; set; }

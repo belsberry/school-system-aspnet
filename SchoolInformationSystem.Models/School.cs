@@ -4,7 +4,8 @@ namespace SchoolInformationSystem.Models
 {
 	public class School : IHaveId
 	{
-		public Guid _id { get; set; }
+		public School(){}
+		public Guid Id { get; set; }
 		public string Name { get; set; }
 	}
 }

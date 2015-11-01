@@ -12,6 +12,10 @@ using SchoolInformationSystem.Web.Infrastructure;
 using Microsoft.AspNet.Diagnostics;
 using SchoolInformationSystem.Models;
 using SchoolInformationSystem.Common.Security;
+using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc.Filters;
+using Newtonsoft.Json.Serialization;
 
 namespace SchoolInformationSystem
 {
@@ -32,9 +36,14 @@ namespace SchoolInformationSystem
         // Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            var defaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser().Build();
             services.AddLogging();
             
-            IMvcBuilder mvcBuilder = services.AddMvc();
+            IMvcBuilder mvcBuilder = services.AddMvc(options => {
+                options.Filters.Add(new AuthorizeFilter(defaultPolicy));
+            });
             string mongoConnection = Configuration.GetSection("Data:DefaultConnection:Mongo").Value;
             
             /**
@@ -62,9 +71,13 @@ namespace SchoolInformationSystem
             *   Setup serializer
             */
             mvcBuilder.AddJsonOptions(x => {
-                x.SerializerSettings.ContractResolver = 
-                    new DIContractResolver(provider.GetService<IModelCreator>());
+                //var contractResolver = new CamelCasePropertyNamesContractResolver();
+                
+                x.SerializerSettings.ContractResolver = new DIContractResolver(provider.GetService<IModelCreator>());
+                //x.SerializerSettings.Converters.Add(new DIJsonConverter(provider.GetService<IModelCreator>()));
             });
+            
+            services.AddAuthorization();
         }
 
 
@@ -78,8 +91,10 @@ namespace SchoolInformationSystem
             app.UseDefaultFiles();
             app.UseStaticFiles();
             
+            
             app.UseCookieAuthentication(options => {
                 options.AutomaticAuthentication = true; // This makes it do.  Not sure why
+                options.AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Events = new CustomCookieAuthenticationEvents();
             });
             

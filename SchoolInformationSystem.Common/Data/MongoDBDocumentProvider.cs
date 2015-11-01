@@ -81,9 +81,9 @@ namespace SchoolInformationSystem.Common.Data
             if(_serviceProvider != null)
             {
                 BsonClassMap map = new BsonClassMap(type);
-                map.AutoMap();
                 Delegate getValue = CreateInjectorDelegate(type);
                 map.MapCreator(getValue);
+                map.AutoMap();
                 BsonClassMap.RegisterClassMap(map);
             }
         }
@@ -132,7 +132,7 @@ namespace SchoolInformationSystem.Common.Data
             IMongoCollection<T> collection = GetCollectionByType<T>();
             if (collection != null)
             {
-                FilterDefinition<T> def = Builders<T>.Filter.Eq("_id", document._id);
+                FilterDefinition<T> def = Builders<T>.Filter.Eq("_id", document.Id);
                 collection
                     .ReplaceOneAsync(def, document)
                     .Wait();

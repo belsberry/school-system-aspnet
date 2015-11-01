@@ -4,6 +4,6 @@ namespace SchoolInformationSystem.Common.Data
 {
     public interface IHaveId
     {
-        Guid _id { get; set; }
+        Guid Id { get; set; }
     }
 }

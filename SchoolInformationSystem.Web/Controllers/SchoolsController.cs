@@ -23,7 +23,8 @@ namespace SchoolInformationSystem.Web.Controllers
 			return _context.Schools.ToList();
 		}
 		
-		public void Post(School school)
+		[HttpPost]
+		public void Post([FromBody]School school)
 		{
 			_context.Create(school);
 		}

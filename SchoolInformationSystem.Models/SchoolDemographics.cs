@@ -6,7 +6,7 @@ namespace SchoolInformationSystem.Models
 {
 	public class SchoolDemographics : IHaveId
 	{
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public List<SchoolDemographicGrade> Grades { get; set; }
 		public List<SchoolDemographicGender> Genders { get; set; }
 		public List<SchoolDemographicReportedRace> ReportedRaces { get; set; }

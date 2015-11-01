@@ -32,10 +32,9 @@ app.run(["$rootScope", "UserSvc", "SCOPE_LEVELS", "SchoolSvc", "$route", functio
     $rootScope.currentSchoolId = response.data.currentSchoolId;
     return UserSvc.getUserInfo();
   }).then(function(user){
-    console.log(user);
     $rootScope.userName = user.userName;
     $rootScope.school = user.school;
-    $rootScope.canSelectSchool = user.scopeLevel == SCOPE_LEVELS.DISTRICT.value ? true : false;
+    $rootScope.canSelectSchool = user.scopeLevel >= SCOPE_LEVELS.DISTRICT.value ? true : false;
   });
 
   $rootScope.schoolChanged = function(){

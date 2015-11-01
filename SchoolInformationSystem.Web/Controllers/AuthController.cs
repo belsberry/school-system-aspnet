@@ -22,15 +22,16 @@ namespace SchoolInformationSystem.Web.Controllers
 		[HttpGet]
 		public User GetProfile()
 		{
-			return this.ApplicationUser;
+			User currentUser = _context.Users.FirstOrDefault(u => u.Id == this.ApplicationUser.Id);
+			return currentUser;
 		}
 		
 		[Route("profile")]
-		[HttpGet]
-		public User UpdateProfile(User user)
+		[HttpPost]
+		public User UpdateProfile([FromBody]User user)
 		{
 			User currentUser = _context.Users
-				.FirstOrDefault(u => u._id == user._id);
+				.FirstOrDefault(u => u.Id == user.Id);
 			currentUser.FirstName = user.FirstName;
 			currentUser.LastName = user.LastName;
 			currentUser.LicenseNumber = user.LicenseNumber;
@@ -43,13 +44,14 @@ namespace SchoolInformationSystem.Web.Controllers
 		[HttpGet]
 		public object GetCurrentSchoolID()
 		{
-			Guid currentSchoolID = new Guid(HttpContext.Session.Get("CurrentSchoolID"));
+			Guid currentSchoolID;
+			Guid.TryParse(HttpContext.Session.Get("CurrentSchoolID"), out currentSchoolID);
 			return new { currentSchoolID = currentSchoolID };
 		}
 		
 		[Route("session/currentschoolid")]
 		[HttpPost]
-		public void SetCurrentSchoolID(Guid currentSchoolID)
+		public void SetCurrentSchoolID([FromBody]Guid currentSchoolID)
 		{
 			HttpContext.Session.Set("CurrentSchoolID", currentSchoolID.ToString());
 		}
@@ -58,7 +60,7 @@ namespace SchoolInformationSystem.Web.Controllers
 		[HttpPost]
 		public void SetPassword(string newPassword)
 		{
-			Guid currentUserID = this.ApplicationUser._id;
+			Guid currentUserID = this.ApplicationUser.Id;
 			Login login = _context.Logins.FirstOrDefault(lg => lg.UserID == currentUserID);
 			login.SetPassword(newPassword);
 			_context.Update(login);

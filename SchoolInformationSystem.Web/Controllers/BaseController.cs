@@ -19,8 +19,10 @@ namespace SchoolInformationSystem.Web.Controllers
 					User u = new User();
 					u.FirstName = id.FindFirst("FirstName").Value;
 					u.LastName = id.FindFirst("LastName").Value;
-					u._id = new Guid(id.FindFirst("_id").Value);
+					u.Id = new Guid(id.FindFirst("Id").Value);
 					u.LicenseNumber = id.FindFirst("LicenseNumber").Value;
+					u.ScopeLevel = (ScopeLevel)Int32.Parse(id.FindFirst("ScopeLevel").Value);
+					
 					return u;
 				}
 				catch(Exception ex)
@@ -38,10 +40,11 @@ namespace SchoolInformationSystem.Web.Controllers
 			{
 				new Claim("FirstName", u.FirstName ?? ""),
 				new Claim("LastName", u.LastName ?? ""),
-				new Claim("_id", u._id.ToString()),
-				new Claim("LicenseNumber", u.LicenseNumber ?? "")
+				new Claim("Id", u.Id.ToString()),
+				new Claim("LicenseNumber", u.LicenseNumber ?? ""),
+				new Claim("ScopeLevel", ((int)u.ScopeLevel).ToString())
 			};
-			ClaimsIdentity id = new ClaimsIdentity(claims);
+			ClaimsIdentity id = new ClaimsIdentity(claims, "local", "name", "role");
 			ClaimsPrincipal principal = new ClaimsPrincipal(id);
 			HttpContext.Authentication.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();			
 		}		

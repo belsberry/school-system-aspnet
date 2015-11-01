@@ -6,7 +6,7 @@ namespace SchoolInformationSystem.Models
 {
 	public class StudentDomain : IHaveId
 	{
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public List<Grade> Grades { get; set; }
 	}
 	

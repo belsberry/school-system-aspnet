@@ -7,7 +7,7 @@ namespace SchoolInformationSystem.Models
 	{
 		public User(){}
 		
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string LicenseNumber { get; set; }
