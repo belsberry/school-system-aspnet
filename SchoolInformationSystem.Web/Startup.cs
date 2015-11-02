@@ -58,7 +58,7 @@ namespace SchoolInformationSystem
             services.AddAuthentication();
             services.AddSession();
             services.AddCaching();          
-            services.AddTransient(typeof(Login));
+            services.AddTransient(typeof(User));
             services.AddTransient(typeof(IEncryption), typeof(Encryption));
             
             services.AddTransient(typeof(IModelCreator), typeof(ModelCreator));

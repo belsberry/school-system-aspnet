@@ -22,7 +22,7 @@ enrollmentServices.service("StudentSvc", ["$http", "$rootScope", function($http,
 
 
   function updateStudent(student){
-    return $http.post("/api/students/" + student._id, student);
+    return $http.post("/api/students/" + student.id, student);
   }
 
   return {

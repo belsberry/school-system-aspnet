@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System;
 using Microsoft.AspNet.Authentication.Cookies;
+using SchoolInformationSystem.Common.Models;
 
 namespace SchoolInformationSystem.Web.Controllers
 {
 	public abstract class BaseController : Controller
 	{
+		[FromServices]
+		public IModelCreator ModelCreator { get; set; } 
+		
 		protected User ApplicationUser
 		{
 			get
@@ -16,7 +20,7 @@ namespace SchoolInformationSystem.Web.Controllers
 				try
 				{
 					ClaimsIdentity id = HttpContext.User.Identity as ClaimsIdentity;
-					User u = new User();
+					User u = ModelCreator.LoadModel<User>();
 					u.FirstName = id.FindFirst("FirstName").Value;
 					u.LastName = id.FindFirst("LastName").Value;
 					u.Id = new Guid(id.FindFirst("Id").Value);

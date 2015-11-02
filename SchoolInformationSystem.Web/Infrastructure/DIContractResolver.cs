@@ -25,14 +25,12 @@ namespace SchoolInformationSystem.Web.Infrastructure
 			
 			public object ConstructObject(params object[] args)
 			{
-				Console.WriteLine("In Create Object");
 				return _creator.LoadModel(_type);
 			}
 		}
 		
 		protected override JsonObjectContract CreateObjectContract(Type objectType)
 		{
-			Console.WriteLine(objectType);	
 			var contract = base.CreateObjectContract(objectType);
 			
 			DIObjectConstructor di = new DIObjectConstructor(objectType, _creator);

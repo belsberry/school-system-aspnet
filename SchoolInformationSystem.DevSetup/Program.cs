@@ -21,16 +21,15 @@ namespace SchoolInformationSystem.DevSetup
                return new MongoDBDocumentProvider("mongodb://localhost"); 
             });
             collection.AddTransient(typeof(IEncryption), typeof(Encryption));
-            collection.AddTransient(typeof(Login));
+            collection.AddTransient(typeof(User));
             IServiceProvider provider = collection.BuildServiceProvider();
             
             IModelCreator creator = provider.GetService<IModelCreator>();
             SchoolDataContext context = provider.GetService<SchoolDataContext>();
             
-            Login l = context.Logins.FirstOrDefault(x => x.UserName == "admin");
+            User l = context.Users.FirstOrDefault(x => x.UserName == "admin");
             if(l == null)
             {
-                Login login = creator.LoadModel<Login>();
                 User user = creator.LoadModel<User>();
                 //Setup user
                 user.Id = Guid.NewGuid();
@@ -38,14 +37,10 @@ namespace SchoolInformationSystem.DevSetup
                 user.LastName = "User";
                 user.Email = "ben.elsberry@gmail.com";
                 user.ScopeLevel = ScopeLevel.SuperUser;
+                user.UserName = "admin";
+                user.SetPassword("password");
                 
-                //Setup user login
-                login.UserID = user.Id;            
-                login.SetPassword("password");
-                login.UserName = "admin";
-                login.Id = Guid.NewGuid();
                                 
-                context.Create(login);
                 context.Create(user);
                 
                 Console.WriteLine("User/Login created successfully!");

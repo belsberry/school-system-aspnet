@@ -29,31 +29,21 @@ namespace SchoolInformationSystem.Web.Controllers
 		[HttpPost]
 		public ActionResult Login(string userName, string password, string next = "")
 		{
-			Login userLogin = _context
-				.Logins
+			User userLogin = _context
+				.Users
 				.FirstOrDefault(x => x.UserName == userName);
 			if(userLogin != null && userLogin.CheckPassword(password))
 			{
-				User user = _context.Users
-					.FirstOrDefault(x => x.Id == userLogin.UserID);
-				if(user != null)
+				
+				SignIn(userLogin);
+				if(String.IsNullOrEmpty(next))
 				{
-					
-					SignIn(user);
-					if(String.IsNullOrEmpty(next))
-					{
-						return Redirect("/"); //Redirect to the root page	
-					}
-					else
-					{
-						return Redirect("/#" + next);
-					}
-					
+					return Redirect("/"); //Redirect to the root page	
 				}
 				else
 				{
-					return View(new LoginVM() { Next = next, ErrorMessage = "User is not set up correctly." });	
-				}	
+					return Redirect("/#" + next);
+				}
 			}
 			else
 			{

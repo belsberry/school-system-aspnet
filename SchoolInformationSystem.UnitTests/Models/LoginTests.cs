@@ -15,7 +15,7 @@ namespace SchoolInformationSystem.UnitTests.Models
 			encryptionMock.Setup(x => x.GenerateRandomString(It.IsAny<int>())).Returns("12345");
 			encryptionMock.Setup(x => x.Hash(It.IsAny<string>())).Returns(new byte[]{ 1, 2, 3, 4 });
 			
-			Login login = new Login(encryptionMock.Object);
+			User login = new User(encryptionMock.Object);
 			
 			//act
 			login.SetPassword("password");
@@ -44,7 +44,7 @@ namespace SchoolInformationSystem.UnitTests.Models
 			encryptionMock.Setup(x => x.Hash(It.IsIn(new string[] { "password12345" }))).Returns(new byte[]{ 1, 2, 3, 4 });
 			encryptionMock.Setup(x => x.Hash(It.IsNotIn(new string[] { "password12345" }))).Returns(new byte[]{ 4, 3, 2, 1 });
 			
-			Login login = new Login(encryptionMock.Object);
+			User login = new User(encryptionMock.Object);
 			
 			//act
 			login.SetPassword("password");

@@ -150,7 +150,9 @@ gulp.task("less", ["clean-css"], function () {
     return merge(bootstrap, appStyles, fontAwesome).pipe(gulp.dest(config.cssOutputRoot));
 });
 
-
+gulp.task("watch", function(){
+   gulp.watch(config.allSourceFiles, ["inject"]); 
+});
 
 gulp.task("watch-dev", ["inject"], function () {
   var browserSync = require("browser-sync");

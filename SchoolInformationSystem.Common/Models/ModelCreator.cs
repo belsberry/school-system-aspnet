@@ -15,7 +15,6 @@ namespace SchoolInformationSystem.Common.Models
         }
 		public object LoadModel(Type type)
 		{
-			Console.WriteLine("Hello");
 			object model = _provider.GetService(type);
 			if(model != null)
 			{

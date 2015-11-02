@@ -26,10 +26,10 @@ app.run(["$rootScope", "UserSvc", "SCOPE_LEVELS", "SchoolSvc", "$route", functio
    */
   SchoolSvc.getSchools().then(function(response){
      $rootScope.schools = response.data;
-     $rootScope.schools.splice(0,0, { _id: null, name: "All Schools" });
+     $rootScope.schools.splice(0,0, { id: null, name: "All Schools" });
      return UserSvc.getCurrentSchool();
-  }).then(function(response){
-    $rootScope.currentSchoolId = response.data.currentSchoolId;
+  }).then(function(response){    
+    $rootScope.currentSchoolId = response.data.currentSchoolID;   
     return UserSvc.getUserInfo();
   }).then(function(user){
     $rootScope.userName = user.userName;
@@ -38,6 +38,7 @@ app.run(["$rootScope", "UserSvc", "SCOPE_LEVELS", "SchoolSvc", "$route", functio
   });
 
   $rootScope.schoolChanged = function(){
+    console.log($rootScope.currentSchoolId);
     UserSvc.setCurrentSchool($rootScope.currentSchoolId).then(function(){
       $route.reload();
     });

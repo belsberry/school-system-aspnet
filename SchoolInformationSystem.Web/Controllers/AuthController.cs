@@ -4,6 +4,8 @@ using System.Linq;
 using SchoolInformationSystem.Data;
 using SchoolInformationSystem.Models;
 using Microsoft.AspNet.Authorization;
+using SchoolInformationSystem.Web.DTO;
+using System.Collections.Generic;
 
 namespace SchoolInformationSystem.Web.Controllers
 {
@@ -46,24 +48,53 @@ namespace SchoolInformationSystem.Web.Controllers
 		{
 			Guid currentSchoolID;
 			Guid.TryParse(HttpContext.Session.Get("CurrentSchoolID"), out currentSchoolID);
-			return new { currentSchoolID = currentSchoolID };
+			return new CurrentSchoolIDPost() { CurrentSchoolID = currentSchoolID == Guid.Empty ? null : (Guid?)currentSchoolID };
 		}
 		
 		[Route("session/currentschoolid")]
 		[HttpPost]
-		public void SetCurrentSchoolID([FromBody]Guid currentSchoolID)
+		public void SetCurrentSchoolID([FromBody]CurrentSchoolIDPost schoolPost)
 		{
+			Guid? currentSchoolID = schoolPost.CurrentSchoolID;
+			
 			HttpContext.Session.Set("CurrentSchoolID", currentSchoolID.ToString());
 		}
 		
 		[Route("setpassword")]
 		[HttpPost]
-		public void SetPassword(string newPassword)
+		public void SetPassword([FromBody]NewPasswordPost pwdPost)
 		{
+			string newPassword = pwdPost.NewPassword;
 			Guid currentUserID = this.ApplicationUser.Id;
-			Login login = _context.Logins.FirstOrDefault(lg => lg.UserID == currentUserID);
+			User login = _context.Users.FirstOrDefault(lg => lg.Id == currentUserID);
 			login.SetPassword(newPassword);
 			_context.Update(login);
+		}
+		
+		[Route("users")]
+		[HttpGet]
+		public IEnumerable<User> GetUsers(string searchString = "")
+		{
+			//TODO make current school specific
+			
+			string[] searchParts = searchString.Split(' ');
+			IQueryable<User> userQuery = _context.Users;
+			foreach(string part in searchParts)
+			{
+				userQuery = userQuery.Where(u => u.LastName.Contains(part) || u.FirstName.Contains(part));
+			}
+			return userQuery.ToList();
+		}
+		
+		[Route("users")]
+		[HttpPost]
+		public User AddUser([FromBody]User user)
+		{
+			user.Id = Guid.NewGuid();
+			user.SetPassword("password");
+			_context.Create(user);
+			return user;
+			
 		}
 	}
 }
