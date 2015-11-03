@@ -17,5 +17,7 @@ namespace SchoolInformationSystem.Data
 		public IQueryable<DashboardData> DashboardData { get; set; }
 		public IQueryable<StudentDomain> StudentDomain { get; set; }		
 		public IQueryable<Student> Students { get; set; }
+		public IQueryable<ClassRoster> ClassRosters { get; set; }
+		public IQueryable<GradebookDashboardData> GradebookDashboardData { get; set; }
 	}
 }

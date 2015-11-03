@@ -46,7 +46,7 @@ gradebookControllers.controller("GradebookAssignmentsCtrl", ["$scope", "Gradeboo
   $scope.classes = [];
 
   $scope.selectClass = function(classData){
-    $scope.classId = classData._id;
+    $scope.classId = classData.id;
     $scope.selectedClass = classData;
     loadClassAssignments();
   }
@@ -98,7 +98,7 @@ gradebookControllers.controller("GradebookAssignmentsCtrl", ["$scope", "Gradeboo
   $scope.deleteAssignment = function(assignment){
     if($window.confirm("Are you sure you want to delete " + assignment.description + "?" )){
       GradebookSvc.deleteAssignment($scope.classId, assignment).then(function(response){
-        $scope.classAssignments = _.reject($scope.classAssignments, function(ass){ return ass._id == assignment._id; });
+        $scope.classAssignments = _.reject($scope.classAssignments, function(ass){ return ass.id == assignment.id; });
       }, function(response){
         toastr.error("Error removing assignment");
       });
@@ -289,7 +289,7 @@ gradebookControllers.controller("GradebookClassRosterStudentListCtrl", ["$scope"
 gradebookControllers.controller("GradebookClassRosterAddStudentModalCtrl", ["$scope", "$modalInstance", "StudentSvc", "classRoster", "GradebookSvc", function($scope, $modalInstance, StudentSvc, classRoster, GradebookSvc){
   $scope.searchString = "";
   $scope.students = [];
-  var studentIds = _.map(classRoster.students, function(stu){ return stu._id; });
+  var studentIds = _.map(classRoster.students, function(stu){ return stu.id; });
   var classRoster = classRoster;
 
   /**
@@ -299,7 +299,7 @@ gradebookControllers.controller("GradebookClassRosterAddStudentModalCtrl", ["$sc
 
     StudentSvc.doStudentSearch($scope.searchString).then(function(response){
       $scope.students = _.map(response.data, function(stu){
-        stu.isAlreadyAssigned = _.contains(studentIds, stu._id);
+        stu.isAlreadyAssigned = _.contains(studentIds, stu.id);
         return stu;
       });
     }, function(response){
@@ -308,7 +308,7 @@ gradebookControllers.controller("GradebookClassRosterAddStudentModalCtrl", ["$sc
   }
 
   $scope.addStudentToRoster = function(student){
-    GradebookSvc.addStudentToRoster(classRoster._id, student).then(function(response){
+    GradebookSvc.addStudentToRoster(classRoster.id, student).then(function(response){
       $modalInstance.close(student);
 
     }, function(response){
