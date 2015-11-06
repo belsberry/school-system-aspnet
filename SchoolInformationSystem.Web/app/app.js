@@ -95,6 +95,9 @@ app.config(["$routeProvider", function($routeProvider){
   }).when("/configuration/userlist", {
     templateUrl: "app/configuration/userList.template.html",
     controller: "ConfigurationUserListCtrl"
+  }).when("/configuration/systemsetup", {
+    templateUrl: "app/configuration/systemSetup.template.html",
+    controller: "SystemSetupCtrl"
   }).otherwise({
     redirectTo: "/"
   });

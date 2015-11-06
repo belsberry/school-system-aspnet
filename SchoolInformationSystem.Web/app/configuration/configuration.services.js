@@ -1,8 +1,16 @@
 var configurationServices = angular.module("configurationServices", []);
 
 configurationServices.service("ConfigurationSvc", ["$http", function($http){
+  function getSystemSetup(){
+    return $http.get("/api/configuration/systemsetup");
+  }
+  
+  function updateSystemSetup(setup){
+    return $http.put("/api/configuration/systemsetup", setup);
+  }
   return {
-    //TODO put anything in here.
+    getSystemSetup: getSystemSetup,
+    updateSystemSetup: updateSystemSetup
   }
 }]);
 
@@ -15,6 +23,9 @@ configurationServices.service("SchoolSvc", ["$http", function($http){
   function addSchool(school){
     return $http.post("/api/configuration/schools", school);
   }
+  
+  
+  
   return {
     getSchools: getSchools,
     addSchool: addSchool

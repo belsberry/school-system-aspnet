@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SchoolInformationSystem.Models;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
+using System;
 
 namespace SchoolInformationSystem.Web.Controllers
 {
@@ -24,9 +25,11 @@ namespace SchoolInformationSystem.Web.Controllers
 		}
 		
 		[HttpPost]
-		public void Post([FromBody]School school)
+		public IActionResult Post([FromBody]School school)
 		{
+			school.Id = Guid.NewGuid();
 			_context.Create(school);
+			return Ok(school);
 		}
 	}
 }

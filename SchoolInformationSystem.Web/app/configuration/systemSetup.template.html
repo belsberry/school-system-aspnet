@@ -1,0 +1,30 @@
+<div class="row">
+	<button class="btn btn-primary" ng-click="saveChanges()">Save</button>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Grade Id</th>
+					<th>Description</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="grade in systemSetup.grades">
+					<td>{{ grade.id }}</td>
+					<td>{{ grade.description }}</td>
+					<td><button class="btn btn-danger" ng-show="!grade.id" ng-click="removeGrade(grade)">Remove</button></td>
+				</tr>
+				
+			</tbody>
+		</table>
+		<form name="newGradeForm" ng-submit="addGrade()" novalidate>
+			<input type="text" name="description" ng-model="newGrade.description" required />
+			<input type="submit" value="Add Grade" class="btn btn-default"/>
+		</form>
+	</div>
+	<div class="col-md-6">
+	</div>
+</div>

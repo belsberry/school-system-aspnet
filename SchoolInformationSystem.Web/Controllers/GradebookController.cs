@@ -60,8 +60,6 @@ namespace SchoolInformationSystem.Web.Controllers
 		[Route("classrosters/{id:Guid}/assignments")]
 		public IActionResult AddClassRosterAssignment(Guid id, [FromBody]Assignment assignment)
 		{
-			Console.WriteLine(id);
-			Console.WriteLine(assignment);
 			if(id == Guid.Empty)
 			{
 				return HttpBadRequest();
@@ -79,6 +77,27 @@ namespace SchoolInformationSystem.Web.Controllers
 			roster.Assignments.Add(assignment);
 			_context.Update(roster);
 			return Ok(assignment);
+		}
+		
+		[HttpDelete]
+		[Route("classrosters/{id:Guid}/assignments/{assignmentId:Guid}")]
+		public IActionResult DeleteClassRosterAssignment(Guid id, Guid assignmentId)
+		{
+			ClassRoster roster = _context.ClassRosters.FirstOrDefault(x => x.Id == id);
+			if(roster == null)
+			{
+				return HttpNotFound();
+			}
+			Assignment assign = roster.Assignments.FirstOrDefault(x => x.Id == assignmentId);
+			if(assign == null)
+			{
+				return HttpNotFound();
+			}
+			
+			roster.Assignments.Remove(assign);
+			_context.Update(roster);
+			return Ok();
+			
 		}
 	}
 }

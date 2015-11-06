@@ -115,3 +115,39 @@ configurationControllers.controller("ConfigurationAddUserModalCtrl", ["$scope", 
   }
   loadSchools();
 }]);
+
+
+
+configurationControllers.controller("SystemSetupCtrl", ["$scope", "ConfigurationSvc", "toastr", function($scope, ConfigurationSvc, toastr){
+  $scope.newGrade = {};
+  $scope.addGrade = function(){
+    if($scope.newGradeForm.$valid){
+      $scope.systemSetup.grades = $scope.systemSetup.grades || [];
+      $scope.systemSetup.grades.push($scope.newGrade);
+      
+      $scope.newGrade = {};
+      $scope.newGradeForm.$setPristine(); 
+    }
+  }
+  
+  $scope.removeGrade = function(grade){
+    var ndx = $scope.systemSetup.grades.indexOf(grade);
+    if(ndx > -1){
+      $scope.systemSetup.grades.splice(ndx,1); 
+    }
+  }
+  
+  $scope.saveChanges = function(){
+    ConfigurationSvc.updateSystemSetup($scope.systemSetup).then(function(){
+      toastr.success("Setup saved");
+    });
+  }
+  
+  ConfigurationSvc.getSystemSetup().then(function(res){
+
+    if(res.data == ""){
+      res.data = undefined;
+    }
+    $scope.systemSetup = res.data || {};
+  });
+}]);
