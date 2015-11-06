@@ -7,10 +7,7 @@ gradebookServices.service("GradebookSvc", ["$http", function($http){
 
 
   function getClassAssignments(classRosterId){
-    return $http.get("/api/gradebook/classRosters/" + classRosterId + "/assignments").then(function(response){
-      response.data = response.data.assignments;
-      return response;
-    });
+    return $http.get("/api/gradebook/classRosters/" + classRosterId + "/assignments");
   }
 
   function getClassRosterList(){
@@ -30,7 +27,7 @@ gradebookServices.service("GradebookSvc", ["$http", function($http){
   }
 
   function deleteAssignment(classId, assignment){
-    return $http.delete("/api/gradebook/classRosters/" + classId + "/assignments/" + assignment._id);
+    return $http.delete("/api/gradebook/classRosters/" + classId + "/assignments/" + assignment.id);
   }
 
   function addStudentToRoster(classId, student){

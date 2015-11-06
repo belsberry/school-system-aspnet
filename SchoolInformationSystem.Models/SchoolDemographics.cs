@@ -14,7 +14,7 @@ namespace SchoolInformationSystem.Models
 	
 	public class SchoolDemographicGrade
 	{
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public string GradeId { get; set; }
 		public string GradeDescription { get; set; }
 		public int Count { get; set; }
@@ -22,7 +22,7 @@ namespace SchoolInformationSystem.Models
 	
 	public class SchoolDemographicGender
 	{
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public string GenderId { get; set; }
 		public string GenderDescription { get; set; }
 		public int Count { get; set; }
@@ -30,7 +30,7 @@ namespace SchoolInformationSystem.Models
 	
 	public class SchoolDemographicReportedRace
 	{
-		public Guid _id { get; set; }
+		public Guid Id { get; set; }
 		public string ReportedRaceId { get; set; }
 		public string ReportedRaceDescription { get; set; }
 		public int Count { get; set; }

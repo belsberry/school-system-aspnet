@@ -6,12 +6,44 @@ namespace SchoolInformationSystem.Models
 {
 	public class ClassRoster : IHaveId
 	{
+		
+		
 		public Guid Id { get; set; }
 		public string ClassName { get; set; }
 		public int Period { get; set; }
-		public List<ClassRosterStudent> Students { get; set; }
+		private List<ClassRosterStudent> _students;
+		public List<ClassRosterStudent> Students 
+		{ 
+			get
+			{
+				if(_students == null)
+				{
+					_students = new List<ClassRosterStudent>();
+				}
+				return _students;
+			} 
+			set
+			{
+				_students = value;
+			}
+		}
 		
-		public List<Assignment> Assignments { get; set; }
+		private List<Assignment> _assignments;
+		public List<Assignment> Assignments 
+		{ 
+			get
+			{
+				if(_assignments == null)
+				{
+					_assignments = new List<Assignment>();
+				}
+				return _assignments;
+			} 
+			set
+			{
+				_assignments = value;
+			}
+		}
 	}
 	
 	public class ClassRosterStudent
@@ -22,6 +54,7 @@ namespace SchoolInformationSystem.Models
 	}
 	public class Assignment
 	{
+		public Guid Id { get; set; }
 		public string Description { get; set; }
 		public DateTime OpenDate { get; set; }
 		public DateTime DueDate { get; set; }

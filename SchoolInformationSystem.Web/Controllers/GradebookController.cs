@@ -41,5 +41,44 @@ namespace SchoolInformationSystem.Web.Controllers
 		}
 		
 		
+		[HttpGet]
+		[Route("classrosters/{id:Guid}/assignments")]
+		public IActionResult GetClassRosterAssignments(Guid id)
+		{
+			ClassRoster roster = _context.ClassRosters.FirstOrDefault(x => x.Id == id);
+			if(roster == null)
+			{
+				return HttpNotFound();
+			}
+			
+			return Ok(roster.Assignments);
+			
+		}
+		
+		
+		[HttpPost]
+		[Route("classrosters/{id:Guid}/assignments")]
+		public IActionResult AddClassRosterAssignment(Guid id, [FromBody]Assignment assignment)
+		{
+			Console.WriteLine(id);
+			Console.WriteLine(assignment);
+			if(id == Guid.Empty)
+			{
+				return HttpBadRequest();
+			}
+			ClassRoster roster = _context.ClassRosters.FirstOrDefault(x => x.Id == id);
+			if(roster == null)
+			{
+				return HttpNotFound();
+			}
+			if(assignment == null)
+			{
+				return HttpBadRequest();
+			}
+			assignment.Id = Guid.NewGuid();
+			roster.Assignments.Add(assignment);
+			_context.Update(roster);
+			return Ok(assignment);
+		}
 	}
 }

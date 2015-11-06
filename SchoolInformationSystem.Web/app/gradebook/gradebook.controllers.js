@@ -84,6 +84,7 @@ gradebookControllers.controller("GradebookAssignmentsCtrl", ["$scope", "Gradeboo
     if($scope.classId){
       GradebookSvc.getClassAssignments($scope.classId).then(function(response){
         var data = response.data;
+        console.log(data);
         $scope.classAssignments = data;
         $scope.showClassAssignments = true;
       }, function(response){

@@ -24,7 +24,7 @@
         <tr ng-repeat="classRoster in classRosters">
           <td>{{ classRoster.className }}</td>
           <td>{{ classRoster.period }}</td>
-          <td class="text-right"><a class="btn btn-default" href="#/gradebook/classRoster/{{ classRoster._id }}/students">Manage Students</a></td>
+          <td class="text-right"><a class="btn btn-default" href="#/gradebook/classRoster/{{ classRoster.id }}/students">Manage Students</a></td>
           <td class="text-right"><button class="btn btn-default">Edit</button></td>
         </tr>
       </tbody>
