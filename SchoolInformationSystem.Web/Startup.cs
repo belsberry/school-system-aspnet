@@ -1,6 +1,5 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-
 using SchoolInformationSystem.Data;
 using SchoolInformationSystem.Common.Data;
 using Microsoft.Dnx.Runtime;
