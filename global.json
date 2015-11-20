@@ -1,10 +1,15 @@
 {
-	"projects": [
-		"SchoolInformationSystem.Common",
-		"SchoolInformationSystem.Models",
-		"SchoolInformationSystem.Data",
-		"SchoolInformationSystem.Web",
-		"SchoolInformationSystem.DevSetup",
-		"SchoolInformationSystem.UnitTests"
-	]
+    "projects": [
+        "SchoolInformationSystem.Common",
+        "SchoolInformationSystem.Models",
+        "SchoolInformationSystem.Data",
+        "SchoolInformationSystem.Web",
+        "SchoolInformationSystem.DevSetup",
+        "SchoolInformationSystem.UnitTests"
+    ],
+    "sdk": {
+        "version": "1.0.0-rc1-final",
+        "runtime": "clr",
+        "architecture": "x86"
+    }
 }

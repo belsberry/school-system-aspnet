@@ -1,21 +1,21 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.DependencyInjection;
+
 using SchoolInformationSystem.Data;
 using SchoolInformationSystem.Common.Data;
-using Microsoft.Framework.Configuration;
 using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Logging;
 using System;
 using SchoolInformationSystem.Common.Models;
 using SchoolInformationSystem.Web.Infrastructure;
-using Microsoft.AspNet.Diagnostics;
 using SchoolInformationSystem.Models;
 using SchoolInformationSystem.Common.Security;
 using Microsoft.AspNet.Authentication.Cookies;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc.Filters;
-using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SchoolInformationSystem
 {
@@ -38,7 +38,9 @@ namespace SchoolInformationSystem
         {
             
             var defaultPolicy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser().Build();
+                .RequireAuthenticatedUser()
+                .AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme)
+                .Build();
             services.AddLogging();
             
             IMvcBuilder mvcBuilder = services.AddMvc(options => {
@@ -71,10 +73,8 @@ namespace SchoolInformationSystem
             *   Setup serializer
             */
             mvcBuilder.AddJsonOptions(x => {
-                //var contractResolver = new CamelCasePropertyNamesContractResolver();
                 
                 x.SerializerSettings.ContractResolver = new DIContractResolver(provider.GetService<IModelCreator>());
-                //x.SerializerSettings.Converters.Add(new DIJsonConverter(provider.GetService<IModelCreator>()));
             });
             
             services.AddAuthorization();
@@ -83,9 +83,9 @@ namespace SchoolInformationSystem
 
         
         // Configure is called after ConfigureServices is called.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            logger.AddConsole();
+            //logger.AddConsole();
             
             // Configure the HTTP request pipeline.
             app.UseDefaultFiles();
@@ -93,7 +93,7 @@ namespace SchoolInformationSystem
             
             
             app.UseCookieAuthentication(options => {
-                options.AutomaticAuthentication = true; // This makes it do.  Not sure why
+                //options.AutomaticAuthentication = true; // This makes it do.  Not sure why
                 options.AuthenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Events = new CustomCookieAuthenticationEvents();
             });

@@ -1,15 +1,15 @@
 {
-  "version": "1.0.0-*",
-  "description": "SchoolInformationSystem.Models Class Library",
-  "authors": [ "Class Library template" ],
-  "tags": [""],
-  "projectUrl": "",
-  "licenseUrl": "",
-  "dependencies": {
-    "SchoolInformationSystem.Common": "1.0.0",
-    "Newtonsoft.Json": "8.0.1-beta1"
-  },
-  "frameworks": {
-    "dnx451": { }
-  }
+    "version": "1.0.0-*",
+    "description": "SchoolInformationSystem.Models Class Library",
+    "authors": [ "Class Library template" ],
+    "tags": [ "" ],
+    "projectUrl": "",
+    "licenseUrl": "",
+    "dependencies": {
+        "SchoolInformationSystem.Common": "1.0.0-*",
+        "Newtonsoft.Json": "8.0.1-beta1"
+    },
+    "frameworks": {
+        "dnx451": { }
+    }
 }
