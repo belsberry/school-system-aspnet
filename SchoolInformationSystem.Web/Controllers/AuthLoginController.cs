@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using SchoolInformationSystem.Web.ViewModels;
 using System.Collections.Generic;
+using Microsoft.AspNet.Authorization;
 
 namespace SchoolInformationSystem.Web.Controllers
 {
