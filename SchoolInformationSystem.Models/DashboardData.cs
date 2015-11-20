@@ -10,7 +10,8 @@ namespace SchoolInformationSystem.Models
 		public List<AssignmentGrade> AssignmentGrades { get; set; }
 		public List<ReferralCount> ReferralCounts { get; set; }
 		public List<AttendanceCount> Attendance { get; set; }
-	}
+        public Guid SchoolId { get; set; }
+    }
 	
 	public class AssignmentGrade
 	{
@@ -20,7 +21,7 @@ namespace SchoolInformationSystem.Models
 	
 	public class ReferralCount
 	{
-		public string Number { get; set; }
+		public string GradeLevel { get; set; }
 		public int Id { get; set; }
 		public int NumberOfReferrals { get; set; }
 		

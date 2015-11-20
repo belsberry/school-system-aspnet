@@ -1,6 +1,6 @@
 var dashboardControllers = angular.module("dashboardControllers", ["dashboardServices", "chart.js", "common"]);
 
-dashboardControllers.controller("DashboardCtrl", ["$scope", "DashboardSvc", "ChartData", function($scope, DashboardSvc, ChartData){
+dashboardControllers.controller("DashboardCtrl", ["$scope", "DashboardSvc", "ChartData", "$rootScope", "$timeout", function($scope, DashboardSvc, ChartData, $rootScope, $timeout){
   $scope.message = "Hello Dashboard";
   $scope.assignmentGradeStats = [];
 
@@ -30,23 +30,34 @@ dashboardControllers.controller("DashboardCtrl", ["$scope", "DashboardSvc", "Cha
     }
   }
 
-  DashboardSvc.getDashboardData().then(function(res){
-    var data = res.data;
-    $scope.dailyAssignmentGradeLabels = _.map(data.dailyAssignmentGrades, function(obj){ return obj.grade; });
-    $scope.dailyAssignmentGradeData = _.map(data.dailyAssignmentGrades, function(obj){
-      return new ChartData(obj, { valueProperty: "recordCount" });
+  function init() {
+    DashboardSvc.getDashboardData().then(function (res) {
+      var data = res.data;
+      $scope.schoolId = $rootScope.currentSchoolId;
+      $scope.dailyAssignmentGradeLabels = _.map(data.assignmentGrades, function (obj) { return obj.grade; });
+      $scope.dailyAssignmentGradeData = _.map(data.assignmentGrades, function (obj) {
+        return new ChartData(obj, { valueProperty: "recordCount" });
+      });
+      
+      $scope.referralCountLabels = _.map(data.referralCounts, function (obj) { return obj.gradeLevel; });
+      var refDat = [];
+      refDat.push(_.map(data.referralCounts, function (obj) {
+        return new ChartData(obj, { valueProperty: "numberOfReferrals" });
+      }));
+      $scope.referralCountData = refDat;
+
+      $scope.attendanceLabels = _.map(data.attendance, function (obj) { return obj.day; });
+      var attendanceDat = [];
+      attendanceDat.push(_.map(data.attendance, function (obj) { return new ChartData(obj, { valueProperty: "count" }) }) )
+      $scope.attendanceData = attendanceDat;
+    }, function (err) {
+      console.log(err);
     });
-    $scope.referralCountLabels = _.map(data.referralCounts, function(obj){ return obj.gradeLevel; });
-    $scope.referralCountData.push(_.map(data.referralCounts, function(obj){
-      return new ChartData(obj, { valueProperty: "numberOfReferrals"});
-    }));
-
-    $scope.attendanceLabels = _.map(data.attendance, function(obj){ return obj.day; });
-    $scope.attendanceData.push(_.map(data.attendance, function(obj){ return new ChartData(obj, { valueProperty: "count" })}));
-
-  }, function(err){
-    console.log(err);
-  });
+        
+  }
+  $scope.$on("sessionLoaded", init);
+  $scope.$on("schoolChanged", init);
+  
 
 
 }]);
