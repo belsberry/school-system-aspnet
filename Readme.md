@@ -1,19 +1,19 @@
-### Example Application
+# Example Application
 
 ## Tech Stack
 
-# Front End
+### Front End
 * Angular.js 1.x
 * Gulp
 * Bootstrap LESS
 
-# Server Side
+### Server Side
 * ASP.NET 5
 * MongoDB
 * SignalR (TODO)
 * RabbitMQ (TODO)
 
-# Testing
+### Testing
 * xUnit 
 * Karma (JS Test Runner) (TODO)
 * Jasmine (JS Test Framework) (TODO)
