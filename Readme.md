@@ -15,7 +15,7 @@
 
 # Testing
 * xUnit 
-* Karma (JS Test Runner) (TODO)
+* Karma (JS Test Runner) (Run ```gulp karma```)
 * Jasmine (JS Test Framework) (TODO)
 * Protractor (E2E Framework) (TODO)
 
