@@ -102,9 +102,7 @@ module.exports = (function () {
 
         karma:{
             configFile: __dirname + "/karma.conf.js",
-            files: [
-              depRoot + "angular/angular.js",
-              depRoot + "angular-mocks/angular-mocks.js",
+            extraFiles: [
               sourceRoot + '**/*.js',
               sourceRoot + '**/*.specs.js'
             ]

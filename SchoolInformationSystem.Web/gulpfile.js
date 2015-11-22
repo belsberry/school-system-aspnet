@@ -89,6 +89,21 @@ gulp.task("assets", ["clean-assets"], function(){
     .pipe(gulp.dest(config.fontFolder));
 });
 
+
+gulp.task("inject-karma-conf", ["inject"], function(){
+    var wiredepOptions = config.getDefaultWiredepOptions();
+    wiredepOptions.devDependencies = true;
+    wiredepOptions.ignorePath = "..";
+    var wiredep = require("wiredep").stream;
+    
+    return gulp
+        .src("./karma.conf.js")
+        .pipe(wiredep(wiredepOptions))
+        .pipe(gulp.dest(__dirname));
+});
+
+
+
 gulp.task("inject-tests", function () {
     var wiredepOptions = config.getDefaultWiredepOptions();
     wiredepOptions.devDependencies = true;
@@ -164,7 +179,7 @@ gulp.task("watch-dev", ["inject"], function () {
   
 });
 
-gulp.task("karma", function () {
+gulp.task("karma", ["inject-karma-conf"], function () {
     var KarmaServer = require("karma").Server;
     new KarmaServer({
         configFile: config.karma.configFile,

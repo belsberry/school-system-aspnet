@@ -7,7 +7,11 @@ describe("Unit: DashboardCtrl", function(){
     $rootScope;
 
   beforeEach(inject(function($injector){
-    scope = {};
+    scope = {
+      $on: function(id, fn){
+        fn();
+      }
+    };
     var ChartData = $injector.get("ChartData");
     $rootScope = $injector.get("$rootScope");
     var $q = $injector.get("$q");
@@ -16,7 +20,7 @@ describe("Unit: DashboardCtrl", function(){
       getDashboardData: function(){
         var deferred = $q.defer();
         deferred.resolve({ data: {
-          dailyAssignmentGrades: [
+          assignmentGrades: [
             { grade: "A", recordCount: 10 },
             { grade: "B", recordCount: 15 }
           ],

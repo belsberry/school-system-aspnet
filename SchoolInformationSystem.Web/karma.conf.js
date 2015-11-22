@@ -13,7 +13,21 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: gulpConfig.karma.files,
+    files: [
+      //bower:js
+      "wwwroot/.tmp/bower_components/angular/angular.js",
+      "wwwroot/.tmp/bower_components/angular-route/angular-route.js",
+      "wwwroot/.tmp/bower_components/Chart.js/Chart.js",
+      "wwwroot/.tmp/bower_components/angular-chart.js/dist/angular-chart.js",
+      "wwwroot/.tmp/bower_components/underscore/underscore.js",
+      "wwwroot/.tmp/bower_components/angular-toastr/dist/angular-toastr.tpls.js",
+      "wwwroot/.tmp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+      "wwwroot/.tmp/bower_components/angular-mocks/angular-mocks.js",
+      //endbower
+      gulpConfig.tempAppFolder.slice(2) + "**/*.js",
+      gulpConfig.templateCache.outFile.slice(2),
+      gulpConfig.jasmine.specs.slice(2)
+    ],
 
 
     // list of files to exclude
